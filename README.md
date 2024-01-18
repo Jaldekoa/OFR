@@ -191,4 +191,4 @@ OFR.STFM.get_series_data.series_dataset(datset, **kwargs)
 
 # U.S. Money Market Fund Monitor
 
-- [ ] TODO: Work in progress
+- [ ] TODO (Work in progress): Add the capability to download any data from the OFR's U.S. Money Market Fund Monitor.
