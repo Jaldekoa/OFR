@@ -4,7 +4,7 @@ import pandas as pd
 
 # Mnemonics
 # https://www.financialresearch.gov/short-term-funding-monitor/api-specs/api-info-mnemonics/
-def metadata_mnemonics(**kwargs) -> pd.DataFrame:
+def metadata_mnemonics(**kwargs) -> pd.DataFrame or list:
     url = __encode_url("metadata/mnemonics", kwargs)
     return __read_data_from_url("metadata/mnemonics", url, **kwargs)
 

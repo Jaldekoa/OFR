@@ -1,6 +1,6 @@
-from OFR.STFM.base import __read_metadata_mnemonics, __read_metadata_query, __read_metadata_search
-from OFR.STFM.base import __read_series_timeseries, __read_calc_spread
-from OFR.STFM.base import __read_series_full, __read_series_multifull, __read_series_dataset
+#from OFR.STFM.base import __read_metadata_mnemonics, __read_metadata_query, __read_metadata_search
+#from OFR.STFM.base import __read_series_timeseries, __read_calc_spread
+#from OFR.STFM.base import __read_series_full, __read_series_multifull, __read_series_dataset
 
 mnemonic = ["MMF-MMF_AG_TOT-M", "MMF-MMF_BRA_TOT-M", "MMF-MMF_OA_TOT-M", "MMF-MMF_RP_AG_G30-M",
             "MMF-MMF_RP_AG_LE30-M", "MMF-MMF_RP_AG_OO-M", "MMF-MMF_RP_AG_TOT-M", "MMF-MMF_RP_G30-M",
@@ -107,18 +107,6 @@ params_by_endpoint = {
                        "time_format"]
 }
 
-reader_by_endpoint = {
-    "metadata/mnemonics": __read_metadata_mnemonics,
-    "metadata/query": __read_metadata_query,
-    "metadata/search": __read_metadata_search,
-
-    "series/timeseries": __read_series_timeseries,
-    "calc/spread": __read_calc_spread,
-
-    "series/full": __read_series_full,
-    "series/multifull": __read_series_multifull,
-    "series/dataset": __read_series_dataset,
-}
 
 all_params = {
     "x": mnemonic,

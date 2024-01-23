@@ -1,4 +1,4 @@
-from metadata import params_by_endpoint, all_params, reader_by_endpoint
+from OFR.STFM.metadata import params_by_endpoint, all_params
 from urllib.parse import urlencode
 import pandas as pd
 import requests
@@ -27,7 +27,7 @@ def __encode_url(endpoint: str, params: dict) -> str:
 
 def __read_data_from_url(endpoint: str, url: str, **params) -> pd.DataFrame or (pd.DataFrame, pd.DataFrame):
     res = requests.get(url).json()
-    return reader_by_endpoint[endpoint](res, params)
+    return reader_by_endpoint[endpoint](res, **params)
 
 
 def __read_metadata_mnemonics(raw_json: list or dict, **params) -> pd.DataFrame:
@@ -37,6 +37,8 @@ def __read_metadata_mnemonics(raw_json: list or dict, **params) -> pd.DataFrame:
     elif params.get("output", False):
         dfs = [pd.json_normalize(raw_json, k).assign(dataset=k) for k, v in raw_json.items()]
         return pd.concat(dfs, ignore_index=True)
+    else:
+        return pd.DataFrame(raw_json)
 
 
 def __read_metadata_query(raw_json: dict, **params) -> pd.DataFrame:
@@ -84,3 +86,17 @@ def __read_series_dataset(raw_json: dict, **params) -> (pd.DataFrame, pd.DataFra
                             columns=["database", "long_name", "short_name"])
     else:
         return __read_series_multifull(raw_json["timeseries"], **params)
+
+
+reader_by_endpoint = {
+    "metadata/mnemonics": __read_metadata_mnemonics,
+    "metadata/query": __read_metadata_query,
+    "metadata/search": __read_metadata_search,
+
+    "series/timeseries": __read_series_timeseries,
+    "calc/spread": __read_calc_spread,
+
+    "series/full": __read_series_full,
+    "series/multifull": __read_series_multifull,
+    "series/dataset": __read_series_dataset,
+}
